@@ -1,9 +1,27 @@
+<script>
+import NavBar from "./components/Home/NavBar";
+import Footer from "./components/Home/Footer.vue";
+
+export default {
+  components: {
+    NavBar,
+    Footer,
+  },
+  data() {
+    return {
+      logo: require("./assets/logo_white.png"),
+      call_link: "https://calendly.com/abdullrauf-alhariri-yjc/45-min-meeting",
+    };
+  },
+};
+</script>
+
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
+  <div>
+    <NavBar :logo_path="logo" :call_link="call_link" />
+    <router-view />
+    <Footer />
+  </div>
 </template>
 
 <style>
@@ -16,15 +34,11 @@
 }
 
 nav {
-  padding: 30px;
+  padding: 20px;
 }
 
 nav a {
   font-weight: bold;
   color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>
