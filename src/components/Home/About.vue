@@ -3,13 +3,14 @@ export default {
   name: "About-page",
   props: {
     call_link: String,
+    en: Boolean,
   },
 };
 </script>
 
 <template>
   <div class="about-section" id="about">
-    <div class="container">
+    <div v-if="!en" class="container sv">
       <div class="sub-header">
         <h2>Varför oss?!</h2>
         <p>Vi hjälper dig skala upp din verksamhet till nya höjder.</p>
@@ -45,7 +46,45 @@ export default {
           </p>
         </div>
       </div>
-      <a :href="call_link" class="btn" target="_blank">Booka ett samtal nu!</a>
+      <a :href="call_link" class="btn" target="_blank">Boka ett samtal nu!</a>
+    </div>
+    <div v-if="en" class="container en">
+      <div class="sub-header">
+        <h2>Why us?!</h2>
+        <p>We help you scale up your business to new heights.</p>
+      </div>
+
+      <div class="about-boxes">
+        <div class="box">
+          <div class="icon">
+            <img src="../../assets/icons/Chatbot.png" alt="chattbot" />
+          </div>
+          <h3>Innovative solution</h3>
+          <p>
+            Our solution helps you increase your sales and your e-commerce
+            average order value.
+          </p>
+        </div>
+        <div class="box">
+          <div class="icon">
+            <img src="../../assets/icons/Mobile_payment.png" alt="chattbot" />
+          </div>
+          <h3>Flexible pricing</h3>
+          <p>Our prices are flexible and tailored specifically for you!</p>
+        </div>
+        <div class="box">
+          <div class="icon">
+            <img src="../../assets/icons/Multiple_devices.png" alt="chattbot" />
+          </div>
+          <h3>Result-oriented</h3>
+          <p>
+            Our focus is on delivering results. Through careful analysis and
+            optimization, we ensure that our solutions provide measurable
+            improvements in your sales performance.
+          </p>
+        </div>
+      </div>
+      <a :href="call_link" class="btn" target="_blank">Book a meeting now!</a>
     </div>
   </div>
 </template>

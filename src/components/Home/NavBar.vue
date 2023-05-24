@@ -68,6 +68,8 @@ export default {
       } else {
         this.links = links_en;
       }
+
+      this.$emit("changeLang");
     },
   },
 };

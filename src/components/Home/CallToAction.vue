@@ -3,13 +3,14 @@ export default {
   name: "CallToAction",
   props: {
     call_link: String,
+    en: Boolean,
   },
 };
 </script>
 
 <template>
   <div class="container cta-container">
-    <div class="content">
+    <div v-if="!en" class="content sw">
       <h1>
         Vi hjälper e-commerce att producera bättre ROAI via betald annonsering
       </h1>
@@ -23,6 +24,20 @@ export default {
         class="btn"
         target="_blank"
         >Boka ett samtal nu!</a
+      >
+    </div>
+    <div v-if="en" class="content en">
+      <h1>We help e-commerce improve their ROAI through paid traffic.</h1>
+      <p>
+        Stop wasting time and money on faulty and ineffective ad campaigns. It's
+        time to track your ad budget, scale your business, and increase you
+        sales.
+      </p>
+      <a
+        href="https://calendly.com/abdullrauf-alhariri-yjc/45-min-meeting"
+        class="btn"
+        target="_blank"
+        >Book a meeting now!</a
       >
     </div>
     <img src="../../assets/images/e-commerce-isometric.png" alt="" />

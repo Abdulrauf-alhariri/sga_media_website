@@ -2,13 +2,12 @@
 export default {
   name: "WhyUs",
   props: {
-    title: String,
-    text: String,
     path: String,
     className: String,
     bcColor: String,
     video_cover: String,
     call_link: String,
+    en: Boolean,
   },
   data() {
     return {
@@ -39,11 +38,26 @@ export default {
         ></iframe>
       </div>
 
-      <div class="content">
-        <h3>{{ title }}</h3>
-        <p>{{ text }}</p>
+      <div v-if="!en" class="content sv">
+        <h3>Vem är vi?</h3>
+        <p>
+          Vi är experter inom onlineförsäljning och erbjuder skräddarsydda
+          lösningar för att maximera din framgång på nätet. Med vår expertis och
+          dedikation hjälper vi dig att nå dina försäljningsmål och växa online
+        </p>
         <a :href="call_link" class="btn" target="_blank" :class="bcColor"
-          >Book ett samtal nu!</a
+          >Boka ett samtal nu!</a
+        >
+      </div>
+      <div v-if="en" class="content en">
+        <h3>Who are we?</h3>
+        <p>
+          We are experts in online sales and offer tailored solutions to
+          maximize your success on the internet. With our expertise and
+          dedication, we help you achieve your sales goals and grow online.
+        </p>
+        <a :href="call_link" class="btn" target="_blank" :class="bcColor"
+          >Book a meeting now!</a
         >
       </div>
     </div>

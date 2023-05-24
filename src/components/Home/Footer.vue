@@ -1,8 +1,18 @@
+<script>
+export default {
+  name: "Footer-page",
+  props: {
+    en: Boolean,
+  },
+};
+</script>
+
 <template>
   <div class="footer" id="footer">
     <div class="container">
       <div class="info-container">
-        <h3>Kontakt</h3>
+        <h3 v-if="!en">Kontakt</h3>
+        <h3 v-if="en">Contact</h3>
         <ul>
           <li>073-8973571</li>
           <li>
@@ -32,12 +42,6 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  name: "Footer-page",
-};
-</script>
 
 <style scoped>
 .footer {
