@@ -15,6 +15,7 @@ export default {
     Footer,
   },
   data() {
+    let en_status = this.$store.getters.getEnglishStatus;
     return {
       video: require("../assets/videos/video.mp4"),
       video_cover: require("../assets/images/video_cover.jpg"),
@@ -23,19 +24,14 @@ export default {
       call_link: "https://calendly.com/abdullrauf-alhariri-yjc/45-min-meeting",
       sv_flag: require("../assets/icons/sweden.jpg"),
       en_flag: require("../assets/icons/usa.jpg"),
-      english_status: false,
+      english_status: en_status,
     };
   },
   methods: {
     change() {
       // Getting the current language, 0 represent swedish and 1 english
-      let opt = this.$store.getters.getCurrentOpt;
-
-      if (opt == 0) {
-        this.english_status = false;
-      } else {
-        this.english_status = true;
-      }
+      let status = this.$store.getters.getEnglishStatus;
+      this.english_status = status;
     },
   },
 };

@@ -1,15 +1,23 @@
 <script>
 import BlogBlock from "../components/Blog/BlogBlock.vue";
+import NavBar from "../components/Home/NavBar.vue";
+import Footer from "../components/Home/Footer.vue";
 export default {
   name: "Blogs-page",
   components: {
     BlogBlock,
+    NavBar,
+    Footer,
   },
   data() {
+    let en_status = this.$store.getters.getEnglishStatus;
     return {
       img_1: require("../assets/images/marketing_mistakes.jpg"),
       img_2: require("../assets/images/marketing.jpg"),
-      blogs_content: {
+      sv_flag: require("../assets/icons/sweden.jpg"),
+      en_flag: require("../assets/icons/usa.jpg"),
+      call_link: "https://calendly.com/abdullrauf-alhariri-yjc/45-min-meeting",
+      blogs_content_sv: {
         blog_1: {
           caption: "Vanliga misstag inom betald annonsering inom e-handel",
           author_info: ["Abdullrauf Alhariri", "11 maj 2023"],
@@ -80,29 +88,135 @@ export default {
           ],
         },
       },
+      blogs_content_en: {
+        blog_1: {
+          caption: "Common Mistakes in Paid Advertising in E-commerce",
+          author_info: ["Abdullrauf Alhariri", "May 11, 2023"],
+          intro: `In the competitive world of e-commerce, paid advertising is an indispensable tool for increasing visibility and attracting potential customers. 
+          However, it is common for e-commerce businesses to make certain mistakes when it comes to paid advertising, 
+          resulting in budget wastage and lack of return on investment. In this article, we will discuss some common mistakes in paid advertising in e-commerce and how to avoid them.`,
+          paragraphs: [
+            [
+              `1. Insufficient keyword research: One of the biggest mistakes in paid advertising is the lack of thorough keyword research. 
+              Failing to identify the most relevant and effective keywords can result in ads being shown to an irrelevant audience or failing to reach potential customers.
+               By investing time in conducting thorough keyword research, you can ensure that your ads reach the right target audience and generate higher conversion rates.`,
+            ],
+            [
+              `2. Incorrect audience targeting: Not targeting ad campaigns towards the right audience can be a costly mistake. 
+              In e-commerce, it is crucial to be precise in defining and selecting the most relevant audience for each ad campaign. 
+              By using different segmentation options such as demographics, interests, and behaviors, 
+              you can improve the accuracy of audience targeting and thereby increase the chances of success with your ads.`,
+            ],
+            [
+              `3. Incorrect use of ad formats: Failing to adapt ad formats to the platform or channel can diminish the effectiveness of your ad campaign.
+               Each platform has its specific requirements and best practices for ads. Not taking this into account can result in unattractive and non-engaging ads. 
+               By optimizing your ads for each channel and using the appropriate formats, such as images, videos, or carousels, you can enhance ad visibility and attract more clicks and conversions.`,
+            ],
+            [
+              `4. Inadequate ad management and optimization: Failing to monitor and optimize ad campaigns continuously can lead to inefficient use of marketing budget. 
+              It is essential to regularly analyze results, adjust bidding strategies, test different ad texts, and optimize to improve performance. By utilizing analytics tools and closely tracking your campaigns, you can identify what works and what needs improvement.`,
+            ],
+          ],
+        },
+
+        blog_2: {
+          caption: "Effective Marketing Tips for Success",
+          author_info: ["Abdullrauf Alhariri", "May 12, 2023"],
+          intro: `Marketing is a key factor in successfully reaching your target audience and increasing sales. 
+          Whether you are running a small business or an established entrepreneur, there are some proven tips that can help you succeed with your marketing strategy.
+           In this article, we will discuss some effective marketing tips that you can use to achieve your business goals.`,
+          paragraphs: [
+            [
+              `1. Understand your target audience: Having a deep understanding of your target audience is crucial for creating effective marketing campaigns. 
+              Through thorough research and analysis, you can identify their needs, preferences, and behaviors. 
+              Use this insight to tailor your messaging and offers in a way that truly resonates with your target audience.`,
+            ],
+            [
+              `2. Build a strong brand identity: A strong brand helps you stand out in the competitive market. 
+              Define your brand identity by clearly communicating your vision, values, and unique selling propositions. 
+              Create a consistent and appealing visual identity and spread it across various channels to build brand awareness and loyalty.`,
+            ],
+            [
+              `3. Use multiple marketing channels: By diversifying your marketing channels, you can reach a broader audience and maximize your visibility. 
+              Utilize a combination of online and offline channels, such as social media, email marketing, content marketing, events, and collaboration with influencers. 
+              Adapt your strategy based on your target audience's preferences and behaviors to reach them effectively.`,
+            ],
+            [
+              `4. Create engaging content: Content marketing is a powerful method to attract and engage your target audience. 
+              Create relevant and valuable content tailored to your audience's interests and needs. Use various formats such as blog posts, videos, infographics, and podcasts to diversify your communication and reach different types of users.
+               Remember to prioritize quality over quantity.`,
+            ],
+            [
+              `5. Build strong customer relationships: Building and maintaining strong customer relationships is crucial for increasing loyalty and generating repeat business. 
+              Create a positive customer experience by offering excellent customer service, prompt responses to inquiries, and personal interaction. Also,
+               use incentives and rewards to show appreciation for your customers and encourage their loyalty.`,
+            ],
+          ],
+        },
+      },
+      english_status: en_status,
     };
+  },
+  methods: {
+    change() {
+      // Getting the current language, 0 represent swedish and 1 english
+      let status = this.$store.getters.getEnglishStatus;
+      this.english_status = status;
+    },
   },
 };
 </script>
 
 <template>
-  <div class="container blogs-container">
+  <NavBar
+    :sv_flag="sv_flag"
+    :en_flag="en_flag"
+    :call_link="call_link"
+    @changeLang="change"
+  />
+  <div v-if="!english_status" class="container blogs-container sv">
     <h1>Senaste artiklarna från vår blogg</h1>
     <BlogBlock
-      :caption="blogs_content.blog_1.caption"
+      :caption="blogs_content_sv.blog_1.caption"
       desc="I den konkurrensutsatta världen av e-handel är betald annonsering ett oumbärligt verktyg för att öka synligheten och locka potentiella kunder. 
       Trots detta är det vanligt att företag inom e-handel begår vissa misstag när det gäller betald annonsering ..."
       :img_path="img_1"
-      :blog_content="blogs_content.blog_1"
+      :blog_content_sv="blogs_content_sv.blog_1"
+      :blog_content_en="blogs_content_en.blog_1"
+      btn_text="Läsa mer!"
     />
     <BlogBlock
-      :caption="blogs_content.blog_2.caption"
+      :caption="blogs_content_sv.blog_2.caption"
       desc="Marknadsföring är en nyckelfaktor för att framgångsrikt nå ut till din målgrupp och öka försäljningen. 
       Oavsett om du driver en liten verksamhet eller är en etablerad företagare, finns det vissa beprövade tips som kan hjälpa dig..."
       :img_path="img_2"
-      :blog_content="blogs_content.blog_2"
+      :blog_content_sv="blogs_content_sv.blog_2"
+      :blog_content_en="blogs_content_en.blog_2"
+      btn_text="Läsa mer!"
     />
   </div>
+  <div v-if="english_status" class="container blogs-container sv">
+    <h1>The latest articles from our blog</h1>
+    <BlogBlock
+      :caption="blogs_content_en.blog_1.caption"
+      desc="In the competitive world of e-commerce, paid advertising is an indispensable tool for increasing visibility and attracting potential customers. 
+          However, it is common for e-commerce businesses to make ..."
+      :img_path="img_1"
+      :blog_content_en="blogs_content_en.blog_1"
+      :blog_content_sv="blogs_content_sv.blog_1"
+      btn_text="Read more!"
+    />
+    <BlogBlock
+      :caption="blogs_content_en.blog_2.caption"
+      desc="Marketing is a key factor in successfully reaching your target audience and increasing sales. 
+          Whether you are running a small business or an established entrepreneur, there are some proven tips that can help you ..."
+      :img_path="img_2"
+      :blog_content_en="blogs_content_en.blog_2"
+      :blog_content_sv="blogs_content_sv.blog_2"
+      btn_text="Read more!"
+    />
+  </div>
+  <Footer :en="english_status" />
 </template>
 
 <style scoped>

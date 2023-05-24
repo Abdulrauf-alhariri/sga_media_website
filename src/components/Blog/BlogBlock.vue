@@ -5,7 +5,9 @@ export default {
     caption: String,
     desc: String,
     img_path: String,
-    blog_content: Object,
+    blog_content_sv: Object,
+    blog_content_en: Object,
+    btn_text: String,
   },
   data() {
     return {
@@ -19,10 +21,11 @@ export default {
       this.$router.push({
         name: "Blog",
         query: {
-          caption: this.blog_content.caption,
-          author_info: this.blog_content.author_info,
-          intro: this.blog_content.intro,
-          paragraphs: this.blog_content.paragraphs,
+          caption: [this.blog_content_sv.caption, this.blog_content_en.caption],
+          author_info: this.blog_content_sv.author_info,
+          intro: [this.blog_content_sv.intro, this.blog_content_en.intro],
+          paragraphs_sv: this.blog_content_sv.paragraphs,
+          paragraphs_en: this.blog_content_en.paragraphs,
           img_path: this.img_path,
         },
       });
@@ -41,7 +44,7 @@ export default {
       <div class="content">
         <h3>{{ caption }}</h3>
         <p>{{ desc }}</p>
-        <button class="btn" v-on:click="passParams">Läsa mer!</button>
+        <button class="btn" v-on:click="passParams">{{ btn_text }}</button>
       </div>
     </div>
   </div>

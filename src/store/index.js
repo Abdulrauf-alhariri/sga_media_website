@@ -3,6 +3,7 @@ import { createStore } from "vuex";
 export default createStore({
   state: {
     current_opt: 0,
+    english_status: false,
   },
   getters: {
     getCurrentOpt: (state) => state.current_opt,
@@ -14,7 +15,6 @@ export default createStore({
         return "EN";
       }
     },
-
     getSecondaryLang: (state) => {
       if (state.current_opt == 0) {
         return "EN";
@@ -22,14 +22,17 @@ export default createStore({
         return "SV";
       }
     },
+    getEnglishStatus: (state) => state.english_status,
   },
   mutations: {
     changeLang(state) {
       // Checking the current lang
       if (state.current_opt == 0) {
         state.current_opt = 1;
+        state.english_status = true;
       } else {
         state.current_opt = 0;
+        state.english_status = false;
       }
     },
   },

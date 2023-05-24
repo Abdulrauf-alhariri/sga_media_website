@@ -9,13 +9,17 @@ export default {
   },
 
   data() {
+    let en_status = this.$store.getters.getEnglishStatus;
     // Creating some global variables for the header component
     return {
       toggleNav: false,
       selected: "english",
       hover: false,
       lang: ["EN", "SV"],
-      links: ["Hem", "Blogg", "Om oss", "Kontakta oss", "Boka ett samtal"],
+      links: en_status
+        ? ["Home", "Blog", "About us", "Contact us", "Book a meeting"]
+        : ["Hem", "Blogg", "Om oss", "Kontakta oss", "Boka ett samtal"],
+      english_status: en_status,
     };
   },
   computed: {
