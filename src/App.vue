@@ -11,6 +11,8 @@ export default {
     return {
       logo: require("./assets/logo_white.png"),
       call_link: "https://calendly.com/abdullrauf-alhariri-yjc/45-min-meeting",
+      sv_flag: require("./assets/icons/sweden.jpg"),
+      en_flag: require("./assets/icons/usa.jpg"),
     };
   },
 };
@@ -18,7 +20,12 @@ export default {
 
 <template>
   <div>
-    <NavBar :logo_path="logo" :call_link="call_link" />
+    <NavBar
+      :logo_path="logo"
+      :call_link="call_link"
+      :sv_flag="sv_flag"
+      :en_flag="en_flag"
+    />
     <router-view />
     <Footer />
   </div>
@@ -31,10 +38,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-nav {
-  padding: 20px;
 }
 
 nav a {

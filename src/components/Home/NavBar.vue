@@ -4,13 +4,71 @@ export default {
   props: {
     logo_path: String,
     call_link: String,
+    sv_flag: String,
+    en_flag: String,
   },
 
   data() {
     // Creating some global variables for the header component
     return {
       toggleNav: false,
+      selected: "english",
+      hover: false,
+      lang: ["EN", "SV"],
+      links: ["Hem", "Blogg", "Om oss", "Kontakta oss", "Boka ett samtal"],
     };
+  },
+  computed: {
+    currentLang() {
+      let current_option = this.$store.getters.getCurrentOpt;
+
+      let current_lang = this.$store.getters.getCurrentLang;
+
+      if (current_option == 0) {
+        return [this.sv_flag, current_lang];
+      }
+
+      return [this.en_flag, current_lang];
+    },
+    secondaryLang() {
+      let current_option = this.$store.getters.getCurrentOpt;
+
+      let secondary_lang = this.$store.getters.getSecondaryLang;
+
+      if (current_option == 0) {
+        return [this.en_flag, secondary_lang];
+      }
+
+      return [this.sv_flag, secondary_lang];
+    },
+  },
+  methods: {
+    changeLang() {
+      let links_sv = [
+        "Hem",
+        "Blogg",
+        "Om oss",
+        "Kontakta oss",
+        "Boka ett samtal",
+      ];
+      let links_en = [
+        "Home",
+        "Blog",
+        "About us",
+        "Contact us",
+        "Book a meeting",
+      ];
+
+      // Changing the current language
+      this.$store.commit("changeLang");
+      let opt = this.$store.getters.getCurrentOpt;
+
+      if (opt == 0) {
+        this.links = links_sv;
+      } else {
+        this.links = links_en;
+      }
+    },
   },
 };
 </script>
@@ -37,19 +95,34 @@ export default {
           ></span>
           <ul class="nav-list">
             <li>
-              <router-link to="/">Hem</router-link>
+              <router-link to="/">{{ links[0] }}</router-link>
             </li>
             <li>
-              <router-link to="/blogs">Blogg</router-link>
-            </li>
-            <li><a href="#about">Om oss</a></li>
-            <li>
-              <a href="#footer">Kontakta oss</a>
+              <router-link to="/blogs">{{ links[1] }}</router-link>
             </li>
             <li>
-              <a :href="call_link" id="sign-up" target="_blank"
-                >Boka ett samtal</a
-              >
+              <a href="#about">{{ links[2] }}</a>
+            </li>
+            <li>
+              <a href="#footer">{{ links[3] }}</a>
+            </li>
+            <li class="lang-menu-container">
+              <span class="lang-menu">
+                <span class="lang primary"
+                  ><img :src="currentLang[0]" alt="" />
+                  {{ currentLang[1] }}</span
+                >
+                <fa class="icon" icon="fa-solid fa-chevron-right" />
+                <span class="lang option" @click="changeLang"
+                  ><img :src="secondaryLang[0]" alt="" />
+                  {{ secondaryLang[1] }}</span
+                >
+              </span>
+            </li>
+            <li>
+              <a :href="call_link" id="sign-up" target="_blank">{{
+                links[4]
+              }}</a>
             </li>
           </ul>
         </nav>
@@ -67,9 +140,9 @@ header .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 9rem;
   position: relative;
   width: 100%;
+  min-height: 9rem;
 }
 
 header .logo {
@@ -110,9 +183,10 @@ nav .nav-list {
   flex-direction: row;
   align-items: center;
 }
-nav a {
+nav a,
+nav .lang.primary {
   display: block;
-  padding: 1rem 2rem;
+  padding: 3rem 2rem;
   color: var(--headers-color);
   font-size: 1.8rem;
   font-weight: normal;
@@ -123,6 +197,7 @@ nav a#sign-up {
   color: white;
   border: none;
   border-radius: 50px;
+  padding: 1rem 2rem;
 }
 nav .toggle-menu {
   display: none;
@@ -157,7 +232,39 @@ nav .toggle-menu.open span:nth-child(3) {
   margin: 0;
 }
 
+.lang-menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.lang-menu .lang {
+  cursor: pointer;
+  align-items: center;
+}
+
+.lang-menu img {
+  width: 10px;
+  height: 10px;
+}
+
 @media (max-width: 1200px) {
+  .lang-menu {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .lang-menu .lang {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .lang-menu .option {
+    display: flex;
+    background: none;
+    width: normal;
+    box-shadow: none;
+  }
   nav .nav-list {
     display: none;
   }
@@ -185,6 +292,35 @@ nav .toggle-menu.open span:nth-child(3) {
   nav .toggle-menu {
     display: flex;
     flex-direction: column;
+  }
+}
+
+@media (min-width: 1201px) {
+  .lang-menu {
+    flex-direction: column;
+  }
+
+  .lang-menu .icon {
+    display: none;
+  }
+
+  .lang-menu .option {
+    background: white;
+    border: 1px solid none;
+    box-shadow: 5px 5px 5px #c4c4c4;
+    display: none;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: left;
+    padding: 5px;
+    position: absolute;
+    top: 60px;
+    width: 100px;
+    align-items: center;
+  }
+
+  .lang-menu-container:hover .option {
+    display: flex;
   }
 }
 </style>
