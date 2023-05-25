@@ -2,8 +2,8 @@ import { createStore } from "vuex";
 
 export default createStore({
   state: {
-    current_opt: 0,
-    english_status: false,
+    current_opt: 1,
+    english_status: true,
   },
   getters: {
     getCurrentOpt: (state) => state.current_opt,

@@ -35,6 +35,7 @@ export default {
           class="video"
           frameborder="0"
           :src="path"
+          allow="autoplay"
         ></iframe>
       </div>
 
