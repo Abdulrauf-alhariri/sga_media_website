@@ -12,7 +12,8 @@ export default {
   <div class="container cta-container">
     <div v-if="!en" class="content sw">
       <h1>
-        Vi hjälper e-commerce att producera bättre ROAI via betald annonsering
+        Vi hjälper kliniker att få fler patienter och skala upp sin verksamhet
+        på ett effektivt sätt.
       </h1>
       <p>
         Sluta slösa tid och pengar på felaktiga och ineffektiva annonskampanjer.
@@ -27,7 +28,10 @@ export default {
       >
     </div>
     <div v-if="en" class="content en">
-      <h1>We help e-commerce improve their ROAI through paid traffic.</h1>
+      <h1>
+        We help clinics acquire more patients and effectively scale up their
+        businesses.
+      </h1>
       <p>
         Stop wasting time and money on faulty and ineffective ad campaigns. It's
         time to track your ad budget, scale your business, and increase you
